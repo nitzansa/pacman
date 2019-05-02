@@ -81,15 +81,16 @@
         <div id="setting">
             <P><STRONG>game button: </STRONG>
                 <br/>
-                <INPUT NAME = "left" TYPE = "text" id="left" SIZE = "20" required>
-                <INPUT NAME = "right" TYPE = "text" id="right" SIZE = "20" required>
-                <INPUT NAME = "up" TYPE = "text" id="up" SIZE = "20" required>
-                <INPUT NAME = "down" TYPE = "text" id="down" SIZE = "20" required>
+                <INPUT NAME = "left" TYPE = "text" id="left" SIZE = "10" onkeyup="setLButton(event)" required>
+                <INPUT NAME = "right" TYPE = "text" id="right" SIZE = "10" onkeyup="setRButton(event)" required>
+                <INPUT NAME = "up" TYPE = "text" id="up" SIZE = "10" onkeyup="setUButton(event)" required>
+                <INPUT NAME = "down" TYPE = "text" id="down" SIZE = "10" onkeyup="setDButton(event)" required>
             </P>
     
             <P><STRONG>number of balls: </STRONG>
                 <br/>
-            <INPUT NAME = "ballsNum" TYPE = "text" id="ballsNum" SIZE = "25" required></P>
+                <INPUT NAME = "ballsNum" TYPE = "text" id="ballsNum" SIZE = "25" required>
+            </P>
 
             <P><STRONG>color of balls: </STRONG>
                 <br/>
@@ -106,7 +107,7 @@
                 <br/>
             <INPUT NAME = "monsters" TYPE = "text" id="monsters" SIZE = "25" required></P>
 
-            <input type=button onclick="random()" value="random">
+            random <input id = "randomButton" type = "radio" onclick = "random()" value="random">
             <br/>
             <br/>
             <input type=button onclick="checkParameters()" value="start game">
@@ -181,6 +182,10 @@
     var food_remain;
     //var numberOfMonsters;
     var secondOfGame;
+    var upB;
+    var downB;
+    var rightB;
+    var leftB;
     
     //for their test
     users_arr.push('a');
@@ -208,7 +213,7 @@
         return indexOf.call(this, needle) > -1;
     };
 
-    welcome();
+    welcome(); //????????
 
     function checkFieldsToSubmit(){
         if($("#uname").val()==''){
@@ -565,20 +570,6 @@
             window.alert("The number of balls possible is between 60 and 90")
             return;
         }
-
-        // var check=testColor(document.getElementById("firstColor").value);
-        // if(check===false){
-        //     window.alert("The first color is not possible, please choose a different color");
-        // }
-        // check=testColor(document.getElementById("secondColor").value);
-        // if(check===false){
-        //     window.alert("The second color is not possible, please choose a different color");
-        // }
-        // check=testColor(document.getElementById("thirdColor").value);
-        // if(check===false){
-        //     window.alert("The third color is not possible, please choose a different color");
-        // }
-
         if(document.getElementById("seconds").value<60){
             window.alert("The minimum game time is 60")
             return;
@@ -587,17 +578,6 @@
             window.alert("The number of monsters possible is 1, 2 or 3")
             return;
         }
-       
-        // document.getElementById("monsters").value="";
-        // document.getElementById("ballsNum").value="";
-        // document.getElementById("up").value="";
-        // document.getElementById("down").value="";
-        // document.getElementById("right").value="";
-        // document.getElementById("left").value="";
-        // document.getElementById("seconds").value="";
-        // document.getElementById("firstColor").value="";
-        // document.getElementById("secondColor").value="";
-        // document.getElementById("thirdColor").value="";
         myMusic.stop();
         Start();
     }
@@ -625,13 +605,6 @@
         clock.i = 0;
         clock.j = 0;
         food_remain = document.getElementById("ballsNum").value;
-    //   firstColor=document.getElementById("firstColor").value;
-    //     secondColor=document.getElementById("secondColor").value;
-    //     t  hirdColor=document.getElementById("thirdColor").value;
-    //     console.log(firstColor+", "+secondColor+","+thirdColor);
-    //     numberOfMonsters=document.getElementById("monsters").value
-    //     secondOfGame=document.getElementById("seconds").value
-
         var firstCounter = parseInt(food_remain*0.1);
         var secondCounter = parseInt( food_remain*0.3);
         var thirdCounter = parseInt( food_remain*0.6);
@@ -775,10 +748,9 @@
         }
     }
 
-    function putBall(i,j, firstCounter,secondCounter,thirdCounter){
+    function putBall(i, j, firstCounter, secondCounter, thirdCounter){
 
         var random = Math.floor(Math.random() * (10 - 1) ) + 1;
-        //console.log(random);
         if(random < 4){
             if(firstCounter > 0){
                 board[i][j] = 8;
@@ -786,7 +758,6 @@
             }
             else{
                 random = Math.floor(Math.random() * (10 - 0) ) + 0;
-                //console.log(random+" fiiiiiiiiiiiirst")
                 if(random < 5){
                     if(secondCounter > 0){
                     board[i][j] = 9;
@@ -921,120 +892,28 @@
         }
     }
 
-    // function moveGhoust(){
-    //     if(whatWasBefore===0)
-    //         board[ghost.i][ghost.j] = 0;
-    //     if(whatWasBefore===8)
-    //         board[ghost.i][ghost.j] = 8;
-    //     if(whatWasBefore===9)
-    //         board[ghost.i][ghost.j] = 9;
-    //     if(whatWasBefore===10)
-    //         board[ghost.i][ghost.j] = 10;
-    //     if(whatWasBefore===5)
-    //         board[ghost.i][ghost.j] = 0;
-    //     if(whatWasBefore===20)
-    //         board[ghost.i][ghost.j] = 0;
-    //     if(whatWasBefore===30)
-    //         board[ghost.i][ghost.j] = 0;
-    //     if(whatWasBefore===-1)
-    //         board[ghost.i][ghost.j] = 0;
-
-    //     if(whatWasBeforeSecondGhoust===0)
-    //         board[secondghost.i][secondghost.j] = 0;
-    //     if(whatWasBeforeSecondGhoust=8)
-    //         board[secondghost.i][secondghost.j] = 8;
-    //     if(whatWasBeforeSecondGhoust===9)
-    //         board[secondghost.i][secondghost.j] = 9;
-    //     if(whatWasBeforeSecondGhoust===10)
-    //         board[secondghost.i][secondghost.j] = 10;
-    //     if(whatWasBeforeSecondGhoust==5)
-    //         board[secondghost.i][secondghost.j] = 0;
-    //     if(whatWasBeforeSecondGhoust===20)
-    //         board[secondghost.i][secondghost.j] = 0;
-    //     if(whatWasBeforeSecondGhoust===30)
-    //         board[secondghost.i][secondghost.j] = 0;
-    //     if(whatWasBeforeSecondGhoust===-1)
-    //         board[secondghost.i][secondghost.j] = 0;
-
-    //     if(whatWasBeforeThirdGhoust===0)
-    //         board[thirdghost][thirdghost.j] = 0;
-    //     if(whatWasBeforeThirdGhoust=8)
-    //         board[thirdghost.i][thirdghost.j] = 8;
-    //     if(whatWasBeforeThirdGhoust===9)
-    //         board[thirdghost.i][thirdghost.j] = 9;
-    //     if(whatWasBeforeThirdGhoust===10)
-    //         board[thirdghost.i][thirdghost.j] = 10;
-    //     if(whatWasBeforeThirdGhoust===5)
-    //         board[thirdghost.i][thirdghost.j] = 0;
-    //     if(whatWasBeforeThirdGhoust20)
-    //         board[thirdghost.i][thirdghost.j] = 0;
-    //     if(whatWasBeforeThirdGhoust===30)
-    //         board[thirdghost.i][thirdghost.j] = 0;
-    //     if(whatWasBeforeThirdGhoust===-1)
-    //         board[thirdghost.i][thirdghost.j] = 0;
-
-    //     //console.log(ghost.i +" ......... "+ ghost.j);
-    //     //console.log(forTheSmail)
-    //     var add = false;
-    //     while(add === false){
-    //         var forTheGhoust = Math.random();
-    //         if(forTheGhoust <= 0.25){//down
-    //             if(ghost.i < 9 && board[ghost.i + 1][ghost.j] !== 4 && board[ghost.i + 1][ghost.j] !== 1){
-    //                 ghost.i++;
-    //                 add = true;
-    //                 //console.log("down");
-    //             }
-    //         }
-
-    //         if(0.25<forTheGhoust && forTheGhoust<=0.5){//left
-    //             if(ghost.j<9 && board[ghost.i][ghost.j+1] !== 4 && board[ghost.i][ghost.j+1] !== 1){
-    //                 ghost.j++;
-    //                 add=true;
-    //                 //console.log("left");
-    //             }
-    //         }
-
-    //         if(0.5<forTheGhoust && forTheGhoust<=0.75){//up
-    //             if(ghost.i>0 && board[ghost.i - 1][ghost.j] !== 4 && board[ghost.i - 1][ghost.j] !== 1){
-    //                 ghost.i--;
-    //                 add=true;
-    //                 //console.log("up");
-    //             }
-    //         }
-
-    //         if(0.75<forTheGhoust && forTheGhoust<=1){//right
-    //             if(ghost.j>0 && board[ghost.i][ghost.j-1] !== 4 && board[ghost.i][ghost.j-1] !== 1){
-    //                 ghost.j--;
-    //                 add=true;
-    //                //console.log("right");
-    //             }
-    //         }
-    //     }
-    //     // if(  board[ghost.i][ghost.j] = 2){
-    //     //     randomPacman();
-    //     // }
-    //     whatWasBefore=board[ghost.i][ghost.j];
-    //     board[ghost.i][ghost.j] = -1;
-
-    // }
-
     function moveGhost(){
-        if(whatWasBefore === 0)
+        if(whatWasBefore===0){
             board[ghost.i][ghost.j] = 0;
-        if(whatWasBefore === 8)
+        }
+        if(whatWasBefore===8){
             board[ghost.i][ghost.j] = 8;
-        if(whatWasBefore === 9)
+        }
+        if(whatWasBefore===9){
             board[ghost.i][ghost.j] = 9;
-        if(whatWasBefore === 10)
+        }
+        if(whatWasBefore===10){
             board[ghost.i][ghost.j] = 10;
-        if(whatWasBefore === 5)
+        }
+        if(whatWasBefore===5){
             board[ghost.i][ghost.j] = 0;
-        if(whatWasBefore === 20)
+        }
+        if(whatWasBefore===20){
             board[ghost.i][ghost.j] = 0;
-        if(whatWasBefore === 30)
-            board[ghost.i][ghost.j] = 0;
-        if(whatWasBefore === -1)
-            board[ghost.i][ghost.j] = 0;
+        }
+        if(whatWasBeforeS === 30){
+            board[smail.i][smail.j] = 0;
+        }
         var add = false;
         while(add === false){
             var forTheGhoust = Math.random();
@@ -1045,29 +924,30 @@
                 }
             }
 
-            if(0.25 < forTheGhoust && forTheGhoust <= 0.5){//left
-                if(ghost.j < 9 && board[ghost.i][ghost.j + 1] !== 4 && board[ghost.i][ghost.j + 1] !== 1){
+            if(0.25<forTheGhoust && forTheGhoust<=0.5){//left
+                if(ghost.j<9 && board[ghost.i][ghost.j+1] !== 4 && board[ghost.i][ghost.j+1] !== 1){
                     ghost.j++;
-                    add = true;
+                    add=true;
                 }
             }
 
-            if(0.5 < forTheGhoust && forTheGhoust <= 0.75){//up
-                if(ghost.i > 0 && board[ghost.i - 1][ghost.j] !== 4 && board[ghost.i - 1][ghost.j] !== 1){
+            if(0.5<forTheGhoust && forTheGhoust<=0.75){//up
+                if(ghost.i>0 && board[ghost.i - 1][ghost.j] !== 4 && board[ghost.i - 1][ghost.j] !== 1){
                     ghost.i--;
-                    add = true;
+                    add=true;
                 }
             }
 
-            if(0.75 < forTheGhoust && forTheGhoust <= 1){//right
-                if(ghost.j > 0 && board[ghost.i][ghost.j-1] !== 4 && board[ghost.i][ghost.j-1] !== 1){
+            if(0.75<forTheGhoust && forTheGhoust<=1){//right
+                if(ghost.j>0 && board[ghost.i][ghost.j-1] !== 4 && board[ghost.i][ghost.j-1] !== 1){
                     ghost.j--;
-                    add = true;
+                    add=true;
                 }
             }
         }
-        whatWasBefore = board[ghost.i][ghost.j];
+        whatWasBefore=board[ghost.i][ghost.j];
         board[ghost.i][ghost.j] = -1;
+
     }
 
     // function moveAllGhousts(){
@@ -1211,9 +1091,6 @@
         board[shape.i][shape.j] = 2;
         var currentTime = new Date();
         time_elapsed = (currentTime - start_time) / 1000;
-        if (score >= 20 && time_elapsed <= 10) {
-            pac_color = "green";
-        }    
         Draw();
         if(secondOfGame <= time_elapsed){
             window.clearInterval(interval);
@@ -1376,21 +1253,54 @@
         return [i, j];
     }
 
-    /**
-     * @return {number}
-     */
+    function setUButton(event){
+        upB = event;
+        up.value =  event.key;
+    }
+
+    function setDButton(event){
+        downB = event;
+        down.value = event.key;
+    }
+
+    function setLButton(event){
+        leftB = event;
+        left.value = event.key;
+    }
+
+    function setRButton(event){
+        rightB = event;
+        right.value = event.key;
+    }
+
     function GetKeyPressed() {
-        if (keysDown['ArrowUp']) {
-            return 1;
+        if(randomButton.checked === true){
+            if (keysDown['ArrowUp']) {
+                return 1;
+            }
+            if (keysDown['ArrowDown']) {
+                return 2;
+            }
+            if (keysDown['ArrowLeft']) {
+                return 3;
+            }
+            if (keysDown['ArrowRight']) {
+                return 4;
+            }
         }
-        if (keysDown['ArrowDown']) {
-            return 2;
-        }
-        if (keysDown['ArrowLeft']) {
-            return 3;
-        }
-        if (keysDown['ArrowRight']) {
-            return 4;
+        else{
+            if (keysDown[upB.code]) {
+                return 1;
+            }
+            if (keysDown[downB.code]) {
+                return 2;
+            }
+            if (keysDown[leftB.code]) {
+                return 3;
+            }
+            if (keysDown[rightB.code]) {
+                return 4;
+            }
         }
     }
 
