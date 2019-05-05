@@ -338,6 +338,7 @@ users_arr.push('a');
 
     function restart(){
         lblDisq.value = 3;
+        winMusic.stop();
         window.clearInterval(interval);
         window.clearInterval(intervalGhost);
         window.clearInterval(intervalMedication);
@@ -962,10 +963,17 @@ users_arr.push('a');
         if(secondOfGame <= time_elapsed){
             timeIsUp();
         }
-
-        if(ballsLeft===0){
+        if(ballsLeft === 0 || isBallsLeft()){
             finishGame();
         }
+    }
+    function isBallsLeft(){
+        toReturn = true;
+        for (var i = 0; i < 10 && toReturn; i++){
+            if(contains.call(board[i], 8) || contains.call(board[i], 9) || contains.call(board[i], 10))
+                toReturn = false;
+        }
+        return toReturn;
     }
 
     function finishGame(){
