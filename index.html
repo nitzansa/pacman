@@ -2,142 +2,150 @@
 <html>
 
 <head>
+<link rel="stylesheet" type="text/css" href="style.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
 
     <div id=header>   
-        <img id="logo" src="logo.png" width="15%" height="15%">
-        <br/>
-        <br/>
-        the name of our application: pacmanForUs
-        <br/>
-        <br/>
-        presenters: nitzan sabag 205510001, einat kivity 205778772
+        <img id="logo" src="web-lisnovski-final-smash.gif" width="10%" height="10%">
+        <section id="By" class="By">
+            <br/>
+             By Nitzan Sabag 205510001  &  Einat Kivity 205778772
+        </section>
         <br/> 
         <br/>       
     </div>
 
+    <div id=footer>
+        <img id="img_footer" src="bar_pacline.gif" width="7%" height="10%"></img>
+        <section id="foo" class="foo">
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;©Einat&Nitzan
+            <a href="mailto:einatkiv@gmail.com">einatkiv@gmail.com</a>,
+            <a href="mailto:nitzansabag16@gmail.com">nitzansabag16@gmail.com</a> 
+        </section>
+    </div>
+
     <div id=menu>
-        <a class="menuLine" href="#welcome" onclick="welcome()">welcome | </a>
-        <a class="menuLine" href="#signUp" onclick="signUp()">signUp | </a>
-        <a class="menuLine" href="#login" onclick="login()">login | </a>
-        <a class="menuLine" href="#setting" onclick="setting()">setting | </a>
-        </li><a class="menuLine" href="#about" onclick="about()">about | </a>
+        <a class="menuLine" href="#welcome" onclick="welcome()">welcom&emsp;</a>
+        <a class="menuLine" href="#signUp" onclick="signUp()">&emsp;register&emsp;</a>
+        <a class="menuLine" href="#login" onclick="login()">&emsp;login&emsp;</a>
+        <!-- <a class="menuLine" href="#setting" onclick="setting()">setting | </a> -->
+        </li><a class="menuLine" href="#about" onclick="about()">&emsp;about&emsp;</a>
+        <dialog id="myDialog">bla bla blaaa</dialog>
     </div>
 
     <div id=content>
         <div id=welcome >
-            <input type=button onclick="signUp()" value="signUp">
-            <input type=button onclick="login()" value="login">
+            <input type=button class="buttons" onclick="signUp()" value="Register">
+            <br/>
+            <br/>
+            <input type=button class="buttons" onclick="login()" value="Login">
         </div>
 
         <div id=signUp>
-        
-            <P><STRONG>userName: </STRONG>
-            <INPUT NAME = "userName" TYPE = "text" id="uname" SIZE = "25" required></P>
+            <P><STRONG>User Name: &emsp;</STRONG>
+            <INPUT NAME = "userName" TYPE = "text" id="uname" SIZE = "25" placeholder="Your user name.." required></P>
 
-            <P><STRONG>password: </STRONG>
-            <INPUT NAME = "password" TYPE = "text" id="pass" SIZE = "25" required></P>
+            <P><STRONG>Password: &emsp;</STRONG>
+            <INPUT NAME = "password" TYPE = "text" id="pass" SIZE = "25" placeholder="Your Password.." required></P>
 
-            <P><STRONG>firstName: </STRONG>
-            <INPUT NAME = "firstName" TYPE = "text" id="fname" SIZE = "25" pattern="(?=.*[a-z])(?=.*[A-Z])" required></P>
-
-            <P><STRONG>lastName: </STRONG>
-            <INPUT NAME = "lastName" TYPE = "text" id="lname" SIZE = "25" pattern="(?=.*[a-z])(?=.*[A-Z])" required></P>
+            <P><STRONG>First Name: &emsp;</STRONG>
+            <INPUT NAME = "firstName" TYPE = "text" id="fname" SIZE = "25" pattern="(?=.*[a-z])(?=.*[A-Z])" placeholder="Your first name.." required></P>
             
-            <P><STRONG>Email Address:</STRONG> 
-            <INPUT NAME = "email" TYPE = "text" id="em" SIZE = "25" required></P>
+            <P><STRONG>Last Name: &emsp;</STRONG>
+            <INPUT NAME = "lastName" TYPE = "text" id="lname" SIZE = "25" pattern="(?=.*[a-z])(?=.*[A-Z])" placeholder="Your last name.." required></P>
+            
+            <P><STRONG>Email Address:&emsp;</STRONG> 
+            <INPUT NAME = "email" TYPE = "text" id="em" SIZE = "25" placeholder="Your email.." required></P>
 
-            <P><STRONG>birth date:&emsp;</STRONG>
-            <INPUT NAME = "BD" TYPE = "date" id="bd" SIZE = "25" required>
-            <br/>
-            <br/>
-            <input type=button onclick="submit()" value="submit">
+            <P><STRONG>Birth Date:&emsp;</STRONG>
+            <INPUT NAME = "BD" TYPE = "date" id="bd" SIZE = "25" placeholder="Your birth day.." required>
             </P>
-
+            <section id="sumbit" class="register">
+                <input type=button class="buttons" onclick="submit()" value="submit">
+            </section>
+            
         </div>
 
         <div id="login">
-            <P><STRONG>User name:<input type="text" name="userid" id="userid"></STRONG></P>
-            <P><STRONG>User password:<input type="password" name="psw" id="psw"></STRONG></P>
+            <P><STRONG>User name:&emsp;<input type="text" name="userid" id="userid"></STRONG></P>
+            <P><STRONG>User password:&emsp;<input type="password" name="psw" id="psw"></STRONG></P>
             <br/>
-            <input type=button onclick="start_game()" value="continue">
+            <input type=button class="buttons" onclick="start_game()" value="continue">
         </div>
 
         <div id="setting">
-            <P><STRONG>game button: </STRONG>
-                <br/>
-                <INPUT NAME = "left" TYPE = "text" id="left" SIZE = "10" onkeyup="setLButton(event)" required>
-                <INPUT NAME = "right" TYPE = "text" id="right" SIZE = "10" onkeyup="setRButton(event)" required>
-                <INPUT NAME = "up" TYPE = "text" id="up" SIZE = "10" onkeyup="setUButton(event)" required>
+            <p>
+                Random selection 
+                <input id = "randomButton" type = "radio" onclick = "random()" value="random">
+            </p>
+            <P>
+                Choose up button:&emsp;
+                <INPUT  NAME = "up" TYPE = "text" id="up" SIZE = "10" onkeyup="setUButton(event)" required>
+                    &emsp;Choose down button:&emsp;
                 <INPUT NAME = "down" TYPE = "text" id="down" SIZE = "10" onkeyup="setDButton(event)" required>
+                    &emsp;Choose left button:&emsp;
+                <INPUT NAME = "left" TYPE = "text" id="left" SIZE = "10" onkeyup="setLButton(event)" required>
+                    &emsp;Choose right button:&emsp;
+                <INPUT NAME = "right" TYPE = "text" id="right" SIZE = "10" onkeyup="setRButton(event)" required>
             </P>
-    
-            <P><STRONG>Choose the number of balls, minimum 50 maximum 90: </STRONG>
-                <br/>
-                <INPUT NAME = "ballsNum" TYPE = "text" id="ballsNum" SIZE = "25" required>
+            <P>
+                <STRONG>Choose the number of balls, minimum 50 maximum 90: &emsp;</STRONG>
+                <INPUT NAME = "ballsNum" TYPE = "text" id="ballsNum" SIZE = "10" required>
             </P>
-
-            <P><STRONG>color of balls: </STRONG>
-                <br/>
-                Choose a color for balls that will be worth 25 points:
+            <P>
+                Choose a color for balls that will be worth 25 points:&emsp;
                 <INPUT NAME = "firstColor" TYPE = "color" id="firstColor" SIZE = "10" required>
                 <br/>
-                Choose a color for balls that will be worth 15 points:
+                Choose a color for balls that will be worth 15 points:&emsp;
                 <INPUT NAME = "secondColor" TYPE = "color" id="secondColor" SIZE = "10" required>
                 <br/>
-                Choose a color for balls that will be worth 5 points:   
+                Choose a color for balls that will be worth 5 points:   &emsp;
                 <INPUT NAME = "thirdColor" TYPE = "color" id="thirdColor" SIZE = "10" required>
             </P>
-
-            <P><STRONG>Choose the time for the game, minimum 60 seconds: </STRONG>
-                <br/>
-                <INPUT NAME = "seconds" TYPE = "text" id="seconds" SIZE = "25" required>
+            <P>
+                <STRONG>Choose the time for the game, minimum 60 seconds:&emsp; </STRONG>
+                <INPUT NAME = "seconds" TYPE = "text" id="seconds" SIZE = "10" required>
             </p>
-            
-            <P><STRONG>number of monsters:</STRONG> 
-                <br/>
-            <INPUT NAME = "monsters" TYPE = "text" id="monsters" SIZE = "25" required>
+            <P>
+                <STRONG>Number of monsters:&emsp;</STRONG> 
+                <INPUT NAME = "monsters" TYPE = "text" id="monsters" SIZE = "10" required>
             </P>
-
-            Random selection 
-            <input id = "randomButton" type = "radio" onclick = "random()" value="random">
-            <br/>
-            <br/>
-            <input type=button onclick="checkParameters()" value="start game">
+            <section id="sumbit" class="register">
+                <input class="buttons" type=button onclick="checkParameters()" value="start game">
+            </section>
         </div>
-        
-    </div>
-    
-    <div id=footer>
         
     </div>
 
     <div id=game>
-        <br/>
-        <input type=button onclick="stopMusic()" value="stop music">
-        <input type=button onclick="playMusic()" value="play music">
-        <input type=button onclick="restart()" value="restart">
-        <br/> 
-        SCORE:
-        <input id="lblScore" type="text"/>
-        <br/>
-        TIME:
-        <input id="lblTime" type="text"/>
-        <br/>
-        USERNAME:
-        <input id="lblName" type="text"/>
-        <br/>
-        NUMBER OF DISQUALIFICATIONS ALLOWD:
-        <input id="lblDisq" type="text"/>
+        <p>
+            USERNAME:
+            <input id="lblName" type="text"/> 
+            &emsp;SCORE:
+            <input id="lblScore" type="text"/>
+            &emsp;TIME:
+            <input id="lblTime" type="text"/>
+            &emsp;LIVES:
+            <input id="lblDisq" type="text"/>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            <input class="musicAndrestart_button" type=button onclick="restart()" value="restart">&emsp;
+            <input class="musicAndrestart_button" type=button onclick="stopMusic()" value="stop music">&emsp;
+            <input class="musicAndrestart_button" type=button onclick="playMusic()" value="play music">
+        </p>
         <br/>
         <canvas id="canvas" height="600" width="600"></canvas>
     </div>
 
 
 <script type="text/javascript" src="script.js"></script>
+
 </body>
 
 </html>

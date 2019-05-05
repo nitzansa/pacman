@@ -1,49 +1,49 @@
 var context = canvas.getContext("2d");
-    var shape = new Object();
-    var smail = new Object();
-    var ghost = new Object();
-    var ghost2 = new Object();
-    var ghost3 = new Object();
-    var medication = new Object();
-    var clock = new Object();
-    var heart = new Image();
-    var clockImg = new Image();
-    heart.src="heart-image.png";
-    clockImg.src="alarm-clock.png";
-    myMusic = new sound("mns_zelmerlw_-_heroes_evrovidenie_2015_shvecija_(zvukoff.ru).mp3");
-    winMusic = new sound("Queen-We-Are-The-Champions-cut.mp3");
-    var board;
-    var disq = 3;
-    var score;
-    var allScoreCanGet;
-    var pac_color;
-    var start_time;
-    var time_elapsed;
-    var interval;
-    var needRandom = true;
-    var intervalSmail;
-    var intervalGhost;
-    var intervalMedication;
-    var intervalStopMedication;
-    var whatWasBeforeG1 = 0;
-    var whatWasBeforeG2 = 0;
-    var whatWasBeforeG3 = 0;
-    var whatWasBeforeS = 0;
-    var whatWasBeforeHeart = 0;
-    var users_arr = [];
-    var diraction_pacman;
-    var stopTheSmail = false;
-    var food_remain;
-    var secondOfGame;
-    var upB;
-    var downB;
-    var rightB;
-    var leftB;
-    
-    //for their test
-    users_arr.push('a');
-    users_arr.push('a');
-    
+var shape = new Object();
+var smail = new Object();
+var ghost = new Object();
+var ghost2 = new Object();
+var ghost3 = new Object();
+var medication = new Object();
+var clock = new Object();
+var heart = new Image();
+var clockImg = new Image();
+var theGameIsStarted=false;
+heart.src="heart-image.png";
+clockImg.src="alarm-clock.png";
+myMusic = new sound("mns_zelmerlw_-_heroes_evrovidenie_2015_shvecija_(zvukoff.ru).mp3");
+winMusic = new sound("Queen-We-Are-The-Champions-cut.mp3");
+var board;
+var disq = 3;
+var score;
+var pac_color;
+var start_time;
+var time_elapsed;
+var interval;
+var intervalSmail;
+var intervalGhost;
+var intervalMedication;
+var intervalStopMedication;
+var whatWasBeforeG1 = 0;
+var whatWasBeforeG2 = 0;
+var whatWasBeforeG3 = 0;
+var whatWasBeforeS = 0;
+var users_arr = [];
+var diraction_pacman;
+var stopTheSmail = false;
+var food_remain;
+var secondOfGame;
+var upB;
+var downB;
+var rightB;
+var leftB;
+var extraTime=0;
+var ballsLeft=0
+
+//for their test
+users_arr.push('a');
+users_arr.push('a');
+
     var contains = function(needle) {
         var findNaN = needle !== needle;
         var indexOf;
@@ -77,6 +77,11 @@ var context = canvas.getContext("2d");
             alert("password is a required field");
             return false;
         }
+        if(contains.call(users_arr, $("#uname").val())){
+            alert("This user name already exists in the system, please choose another user name");
+            return false;
+        }
+
         var check=validatePass(document.getElementById("pass").value)
         if(check=="short"){
             alert("This password address is too short");
@@ -216,7 +221,7 @@ var context = canvas.getContext("2d");
             context.beginPath();
             context.arc(center.x, center.y, 30, 0.15 * Math.PI + Math.PI, 1.85 * Math.PI + Math.PI); // half circle
             context.lineTo(center.x, center.y);
-            context.fillStyle = "white"; //color
+            context.fillStyle = "rgb(4, 68, 121)"; //color
             context.fill();
             context.beginPath();
             context.arc(center.x, center.y, 30, 0.15 * Math.PI - Math.PI/2, 1.85 * Math.PI - Math.PI/2); // half circle
@@ -233,7 +238,7 @@ var context = canvas.getContext("2d");
             context.beginPath();
             context.arc(center.x, center.y, 30, 0.15 * Math.PI + Math.PI, 1.85 * Math.PI + Math.PI); // half circle
             context.lineTo(center.x, center.y);
-            context.fillStyle = "white"; //color
+            context.fillStyle = "rgb(4, 68, 121)"; //color
             context.fill();
             context.beginPath();
             context.arc(center.x, center.y, 30, 0.15 * Math.PI + Math.PI/2, 1.85 * Math.PI + Math.PI/2); // half circle
@@ -250,7 +255,7 @@ var context = canvas.getContext("2d");
             context.beginPath();
             context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
             context.lineTo(center.x, center.y);
-            context.fillStyle = "white"; //color
+            context.fillStyle = "rgb(4, 68, 121)"; //color
             context.fill();
             context.beginPath();
             context.arc(center.x, center.y, 30, 0.15 * Math.PI + Math.PI, 1.85 * Math.PI + Math.PI); // half circle
@@ -281,6 +286,7 @@ var context = canvas.getContext("2d");
 
         }   
     }
+
 
     function drawMedication(i, j){
         context.drawImage(heart, 60 * i, 60 * j, 60, 60);
@@ -319,37 +325,39 @@ var context = canvas.getContext("2d");
 
     function gameOver(){
         window.clearInterval(interval);
-        window.clearInterval(intervalSmail);
         window.clearInterval(intervalGhost);
         window.clearInterval(intervalMedication);  
         window.clearInterval(intervalClock);
         window.clearInterval(intervalStopMedication);
         myMusic.stop();
+        theGameIsStarted=false;
         window.alert("You lost!");
     }
 
     function restart(){
         lblDisq.value = 3;
         window.clearInterval(interval);
-        window.clearInterval(intervalSmail);
         window.clearInterval(intervalGhost);
         window.clearInterval(intervalMedication);
         window.clearInterval(intervalClock);
         window.clearInterval(intervalStopMedication);
         window.clearInterval(intervalStopClock);
+        stopTheSmail=false;
+        theGameIsStarted=false;
         Start();
     }
-    function randomGhost(selectedGhost, flag){
-        var added = false;
-        while(added === false){
-            var y = Math.floor(Math.random() * 10);  
-            var x = Math.floor(Math.random() * 10);  
-            selectedGhost.i = x;
-            selectedGhost.j = y;
-            if(board[x][y] !== 4 && board[x][y] !== 2 && board[x][y] !== 5){
-                board[x][y] = flag;
-                added = true;
-            }
+    function againGhost(selectedGhost, flag){
+        if(flag === -1){
+            selectedGhost.i = 0;
+            selectedGhost.j = 9;
+        }
+        if(flag === -2){
+            selectedGhost.i = 9;
+            selectedGhost.j = 9;
+        }
+        if(flag === -3){
+            selectedGhost.i = 9;
+            selectedGhost.j = 0;
         }
     }
     function randomPacman(){
@@ -444,7 +452,6 @@ var context = canvas.getContext("2d");
         z.style.display = "none";
         var k = document.getElementById("setting");
         k.style.display = "none";
-        lblName.value = document.getElementById("userid").value;
         board = new Array();
         score = 0;
         disq = 3;
@@ -452,13 +459,14 @@ var context = canvas.getContext("2d");
         var cnt = 100;
         var pacmanAdded = false;
         var pacman_remain = 1;  
+        secondOfGame=document.getElementById("seconds").value;
         food_remain = document.getElementById("ballsNum").value;
+        ballsLeft=food_remain;
         var firstCounter = Math.floor(food_remain*0.1);
         var secondCounter = Math.floor( food_remain*0.3);
         var thirdCounter = food_remain - firstCounter - secondCounter;
-        allScoreCanGet = (firstCounter * 25) + (secondCounter * 15) + (thirdCounter * 5);
-        console.log(allScoreCanGet);
         start_time = new Date();
+        theGameIsStarted=true;
         medication.i = 0;
         medication.j = 0;
         clock.i = 0;
@@ -497,9 +505,6 @@ var context = canvas.getContext("2d");
                 }
             }
         }
-        board[0][0] = 5
-        smail.i = 0;
-        smail.j = 0;
         initGhost();
        
         if(pacmanAdded === false){
@@ -526,14 +531,14 @@ var context = canvas.getContext("2d");
         addEventListener("keyup", function (e) {
             keysDown[e.code] = false;
         }, false);
-        interval = setInterval(UpdatePosition, 150);
+        interval = setInterval(UpdatePosition, 200);
         //intervalSmail = setInterval(moveSmail, 550);
         intervalGhost = setInterval(moveAllGhousts, 400);
         //intervalGhost = setInterval(moveGhost, 250);
-        intervalMedication = setInterval(addMedication, 9000);
-        intervalStopMedication = setInterval(stopMedication, 11000);
-        intervalClock = setInterval(addClock, 7000);
-        intervalStopClock = setInterval(stopClock, 9000);
+        intervalMedication = setInterval(addMedication, 14000);
+        intervalStopMedication = setInterval(stopMedication, 16000);
+        intervalClock = setInterval(addClock, 15000);
+        intervalStopClock = setInterval(stopClock, 17000);
         myMusic.stop();
         myMusic = new sound("mns_zelmerlw_-_heroes_evrovidenie_2015_shvecija_(zvukoff.ru).mp3");
         myMusic.play(); 
@@ -556,6 +561,9 @@ var context = canvas.getContext("2d");
             ghost3.i = 9;
             ghost3.j = 0;
         }
+        board[0][0]=5;
+        smail.i=0;
+        smail.j=0;
     }
 
     function stopMedication(){
@@ -722,6 +730,7 @@ var context = canvas.getContext("2d");
 
     function start_game(){
         var name = document.getElementById("userid").value;
+        lblName.value=name;
         var password = document.getElementById("psw").value;
         if(contains.call(users_arr, name)){
             var index = users_arr.indexOf(name);
@@ -749,13 +758,13 @@ var context = canvas.getContext("2d");
     function isValidPos(i, j, flag){
         if( i > 9 || i < 0 || j > 9 || j < 0)
             return false;
-        if(flag === -1 && (board[i][j] === -2 ||  board[i][j] === -3))
+        if(flag === -1 && (board[i][j] === -2 ||  board[i][j] === -3 ))
             return false; 
         if(flag === -2 && (board[i][j] === -1 ||  board[i][j] === -3))
             return false; 
-        if(flag === -3 && (board[i][j] === -1 ||  board[i][j] === -2))
+        if(flag === -3 && (board[i][j] === -1  ||  board[i][j] === -2 ))
             return false; 
-        if(board[i][j] === 4 || board[i][j] === 5 || board[i][j] === 20 || board[i][j] === 30)
+        if(board[i][j] === 4 ||  board[i][j] === 5 || board[i][j] === 20 || board[i][j] === 30)
             return false;
         else
             return true;
@@ -792,9 +801,11 @@ var context = canvas.getContext("2d");
         if(dis_up === 0 || dis_down === 0 || dis_left === 0 || dis_right === 0){
             board[shape.i][shape.j] = 0;
             disq--;
+            score=score-10;
             randomPacman();
-            randomGhost(selectedGhost, flag);
-        }else if(Math.min(dis_up, dis_down, dis_left, dis_right) === dis_up){
+            againGhost(selectedGhost, flag);
+        }
+        if(Math.min(dis_up, dis_down, dis_left, dis_right) === dis_up){
             whatWasBefore = board[selectedGhost.i-1][selectedGhost.j];
             selectedGhost.i--;
         }else if(Math.min(dis_up, dis_down, dis_left, dis_right) === dis_down){
@@ -816,6 +827,7 @@ var context = canvas.getContext("2d");
             whatWasBeforeG3 = whatWasBefore;
 
         board[selectedGhost.i][selectedGhost.j] = flag;
+
     }
 
     function moveAllGhousts(){
@@ -828,6 +840,8 @@ var context = canvas.getContext("2d");
         if(monsters.value >= 3){
             moveGhost(ghost3, -3, whatWasBeforeG3);
         }
+        if(stopTheSmail===false)
+            moveSmail();
     }
 
     function moveSmail(){
@@ -839,7 +853,7 @@ var context = canvas.getContext("2d");
         while(add === false){
             var forTheSmail = Math.random();
             if(forTheSmail <= 0.25){//down
-                    if(smail.i < 9 && board[smail.i + 1][smail.j] !== 4 && board[smail.i + 1][smail.j] !== -1 && board[smail.i + 1][smail.j] !== -3 && board[smail.i + 1][smail.j] !== -3){
+                    if(smail.i < 9 && board[smail.i + 1][smail.j] !== 2 && board[smail.i + 1][smail.j] !== 4 && board[smail.i + 1][smail.j] !== -1 && board[smail.i + 1][smail.j] !== -2 && board[smail.i + 1][smail.j] !== -3){
                         whatWasBeforeS = board[smail.i+1][smail.j];
                         smail.i++;
                         add = true;
@@ -847,7 +861,7 @@ var context = canvas.getContext("2d");
             }
 
             if(0.25 < forTheSmail && forTheSmail <= 0.5){//left
-                    if(smail.j<9 && board[smail.i][smail.j+1] !== 4 && board[smail.i + 1][smail.j] !== -1 && board[smail.i + 1][smail.j] !== -2 && board[smail.i + 1][smail.j] !== -3){
+                    if(smail.j<9 && board[smail.i][smail.j+1] !== 2 && board[smail.i][smail.j+1] !== 4 && board[smail.i][smail.j+1] !== -1 && board[smail.i][smail.j+1] !== -2 && board[smail.i][smail.j+1] !== -3){
                         whatWasBeforeS = board[smail.i][smail.j+1];
                         smail.j++;
                         add = true;
@@ -855,7 +869,7 @@ var context = canvas.getContext("2d");
             }
 
             if(0.5<forTheSmail && forTheSmail<=0.75){//up
-                    if(smail.i>0 && board[smail.i - 1][smail.j] !== 4 && board[smail.i + 1][smail.j] !== -1 && board[smail.i + 1][smail.j] !== -2 && board[smail.i + 1][smail.j] !== -3){
+                    if(smail.i>0 && board[smail.i - 1][smail.j] !== 2 && board[smail.i - 1][smail.j] !== 4 && board[smail.i - 1][smail.j] !== -1 && board[smail.i - 1][smail.j] !== -2 && board[smail.i - 1][smail.j] !== -3){
                         whatWasBeforeS = board[smail.i-1][smail.j];
                         smail.i--;
                         add = true;
@@ -863,7 +877,7 @@ var context = canvas.getContext("2d");
             }
 
             if(0.75<forTheSmail && forTheSmail<=1){//right
-                if(smail.j > 0 && board[smail.i][smail.j-1] !== 4 && board[smail.i + 1][smail.j] !== -1 && board[smail.i + 1][smail.j] !== -2 && board[smail.i + 1][smail.j] !== -3){
+                if(smail.j > 0 && board[smail.i ][smail.j-1] !== 2 && board[smail.i][smail.j-1] !== 4 && board[smail.i ][smail.j-1] !== -1 && board[smail.i][smail.j-1] !== -2 && board[smail.i][smail.j-1] !== -3){
                     whatWasBeforeS = board[smail.i][smail.j-1];
                     smail.j--;
                     add = true;
@@ -901,41 +915,45 @@ var context = canvas.getContext("2d");
             diraction_pacman = 4;
         }        
         if (board[shape.i][shape.j] === 8) {
-            score = score + 25;;
+            score = score + 25;
+            ballsLeft--;
         }
         if (board[shape.i][shape.j] === 9) {
-            score = score + 15;;
+            score = score + 15;
+            ballsLeft--;
         }
         if (board[shape.i][shape.j] === 10) {
             score = score + 5;
+            ballsLeft--;
         }
         if(board[shape.i][shape.j] === 5){
             score = score + 50;
             board[shape.i][shape.j]=0;
             stopTheSmail = true;
-            window.clearInterval(intervalSmail);
+            
         }
         if(board[shape.i][shape.j] === 20){
             disq++;
         }
         if(board[shape.i][shape.j] === 30){
-            time_elapsed = time_elapsed - 15;
+            extraTime = extraTime + 15;
         }
         board[shape.i][shape.j] = 2;
         var currentTime = new Date();
-        time_elapsed = (currentTime - start_time) / 1000;
+        time_elapsed =parseFloat((currentTime - start_time) / 1000);
+        time_elapsed=parseInt(time_elapsed-extraTime);
         Draw();
         if(secondOfGame <= time_elapsed){
             timeIsUp();
         }
-        // if(score >= allScoreCanGet){
-        //     finishGame();
-        // }
+
+        if(ballsLeft===0){
+            finishGame();
+        }
     }
 
     function finishGame(){
         window.clearInterval( interval);
-        window.clearInterval(intervalSmail);
         window.clearInterval(intervalGhost);
         window.clearInterval(intervalMedication);
         window.clearInterval(intervalClock);
@@ -943,12 +961,13 @@ var context = canvas.getContext("2d");
         window.clearInterval(intervalStopClock);
         myMusic.stop();
         winMusic.play();
-        window.alert("We have a Winner!!!" );
+        setTimeout(function() {
+            alert("We have a Winner!!!");
+        },10)
     }
 
     function timeIsUp(){
         window.clearInterval( interval);
-        window.clearInterval(intervalSmail);
         window.clearInterval(intervalGhost);
         window.clearInterval(intervalMedication);
         window.clearInterval(intervalClock);
@@ -961,7 +980,10 @@ var context = canvas.getContext("2d");
         }
         else{
             winMusic.play();
-            window.alert("We have a Winner!!!" );
+            setTimeout(function() {
+                alert("We have a Winner!!!");
+            },10)
+            //window.alert("We have a Winner!!!" );
         }
     }
 
@@ -975,6 +997,8 @@ var context = canvas.getContext("2d");
     }
 
     function welcome(){
+        if(theGameIsStarted)
+            gameOver()
         var w = document.getElementById("welcome");
         w.style.display = "block";
         var z = document.getElementById("signUp");
@@ -985,15 +1009,14 @@ var context = canvas.getContext("2d");
         x.style.display = "none";
         var s = document.getElementById("setting");
         s.style.display = "none"; 
+        myMusic.stop();
     }
 
     function signUp(){
+        if(theGameIsStarted)
+            gameOver();
         var w = document.getElementById("signUp");
-        //if (w.style.display === "none") {
         w.style.display = "block";
-        // } else {
-        //     w.style.display = "none";
-        // }
         var y = document.getElementById("welcome");
             y.style.display = "none";
         var x = document.getElementById("login");
@@ -1002,11 +1025,14 @@ var context = canvas.getContext("2d");
             z.style.display = "none";
         var s = document.getElementById("setting");
         s.style.display = "none";
+        myMusic.stop();
 
     }
 
     function login(){
         diraction_pacman = 4;
+        if(theGameIsStarted)
+            gameOver();
         var w = document.getElementById("login");
         w.style.display = "block";
         var y = document.getElementById("welcome");
@@ -1017,6 +1043,7 @@ var context = canvas.getContext("2d");
         z.style.display="none";
         var s = document.getElementById("setting");
         s.style.display="none";
+        myMusic.stop();
         
     }
 
@@ -1189,4 +1216,8 @@ var context = canvas.getContext("2d");
                 }
             }
         }
+    }
+
+    function about(){
+        document.getElementById("myDialog").showModal(); 
     }
