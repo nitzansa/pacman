@@ -2,17 +2,21 @@
 <html>
 
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
 
     <div id=header>   
-        <img id="logo" src="web-lisnovski-final-smash.gif" width="10%" height="10%">
+        <img id="logo_gif" src="web-lisnovski-final-smash.gif" width="10%" height="10%">
+        <img id="logo" src="pacman.png" width="20%" height="20%">
         <section id="By" class="By">
             <br/>
-             By Nitzan Sabag 205510001  &  Einat Kivity 205778772
+             Pacman ForUs By Nitzan Sabag 205510001  &  Einat Kivity 205778772
         </section>
         <br/> 
         <br/>       
@@ -21,6 +25,9 @@
     <div id=footer>
         <img id="img_footer" src="bar_pacline.gif" width="7%" height="10%"></img>
         <section id="foo" class="foo">
+                &emsp;&emsp;&emsp; &emsp;&emsp;&emsp;Welcome to our Pacman game! We're sure you'll enjoy it. If you're playing here for the first time, you'll probably hear that there's a Smiley character in the game, adding 50 points if the Pacman manages to eat it. 
+                &emsp;&emsp;&emsp; &emsp;&emsp;&emsp;In addition, during the game you can catch the clock that adds 15 seconds to the game, or catch a heart that adds life. Have a lot of success, and always remember that you are the winner.
+                <br/>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -32,13 +39,47 @@
         </section>
     </div>
 
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">About</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            Names: Einat Kivity, Nitzan Sabag.
+            <br/>
+            Use of the jQuery Pulgin includes:
+            <br/>
+            -Check parameters. In places where the user had to insert inputs, we checked whether these inputs were valid according to the work instructions.
+            <br/>
+            - Reset text fields. Each time the user is on the registration or login page, he will see empty fields for inputting inputs. The inputs he inserted will no longer be saved after submitting the page.
+            <br/>
+            Use of Templates:
+            -
+            <br/>
+            -
+            <br/>
+            -
+            <br/>
+            Dificulties encountered during work was......
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     <div id=menu>
-        <a class="menuLine" href="#welcome" onclick="welcome()">welcom&emsp;</a>
+        <a class="menuLine" href="#welcome" onclick="welcome()">welcome&emsp;</a>
         <a class="menuLine" href="#signUp" onclick="signUp()">&emsp;register&emsp;</a>
         <a class="menuLine" href="#login" onclick="login()">&emsp;login&emsp;</a>
-        <!-- <a class="menuLine" href="#setting" onclick="setting()">setting | </a> -->
-        </li><a class="menuLine" href="#about" onclick="about()">&emsp;about&emsp;</a>
-        <dialog id="myDialog">bla bla blaaa</dialog>
+        <a class="menuLine" href="#about" data-toggle="modal" data-target="#exampleModal">&emsp;about&emsp;</a>
     </div>
 
     <div id=content>
@@ -66,7 +107,7 @@
             <INPUT NAME = "email" TYPE = "text" id="em" SIZE = "25" placeholder="Your email.." required></P>
 
             <P><STRONG>Birth Date:&emsp;</STRONG>
-            <INPUT NAME = "BD" TYPE = "date" id="bd" SIZE = "25" placeholder="Your birth day.." required>
+            <INPUT NAME = "BD" TYPE = "date" id="bd" required>
             </P>
             <section id="sumbit" class="register">
                 <input type=button class="buttons" onclick="submit()" value="submit">

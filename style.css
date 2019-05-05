@@ -1,3 +1,8 @@
+html
+{
+    min-width: 1366;
+    min-height: 768;
+}
 body
 {
 	background-image:url("Pac-Man_SSB4.png");
@@ -28,7 +33,7 @@ body
     text-align: left;
 }
 #img_footer{
-    opacity: 0.6;
+    opacity: 0.4;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -38,8 +43,8 @@ body
 }
 #foo{
     position: absolute;
-    float: right;
-    text-align: right;
+    float: left;
+    text-align: left;
     font: bold 70% Georgia, serif;
     /* font-size: 90%; */
     color: black;
@@ -48,11 +53,20 @@ body
     position: absolute;
 }
 
-#logo
+#logo_gif
 {
 	float: left;
 	size: 5%;
 	border-radius: 100%;
+	z-index: 1; /* Stay on top */
+	top: 0; /* Stay at the top */
+	left: 0;
+	position: relative;
+}
+#logo
+{
+	float: right;
+	size: 20%;
 	z-index: 1; /* Stay on top */
 	top: 0; /* Stay at the top */
 	left: 0;
@@ -122,15 +136,17 @@ body
 
 input[type=text] {
     width: 20%;
+    height: 2%;
     padding: 3px 20px;
-    margin: 8px 0;
+    margin: 8x 0;
     box-sizing: border-box;
     border: 3px solid rgb(232, 252, 122);
     border-radius: 4px;
 }
 input[type=date] {
     width: 20%;
-    padding: 3px 20px;
+    height: 0%;
+    padding: 1px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 3px solid rgb(232, 252, 122);
@@ -138,6 +154,7 @@ input[type=date] {
 }
 input[type=password] {
     width: 20%;
+    height: 2%;
     padding: 3px 20px;
     margin: 8px 0;
     box-sizing: border-box;

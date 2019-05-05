@@ -84,7 +84,7 @@ users_arr.push('a');
 
         var check=validatePass(document.getElementById("pass").value)
         if(check=="short"){
-            alert("This password address is too short");
+            alert("Your password is too short. Note that the password must be at least 8 characters and must contain letters or numbers only");
             return false;
         }
         if(check=="invalid"){
@@ -123,6 +123,10 @@ users_arr.push('a');
         }
         if($("#bd").val()==''){
             alert("birth date is a required field");
+            return false;
+        }
+        if(parseInt($("#bd").val())>2018){
+            alert("Your date of birth can not be a future date");
             return false;
         }
         return true;
@@ -378,10 +382,15 @@ users_arr.push('a');
         }
     }
     //**********
-    function random(){
+     function random(){
         firstColor.value = getRandomColor();
         secondColor.value = getRandomColor();
         thirdColor.value = getRandomColor();
+        while(firstColor == "#044479" || secondColor == "#044479" || thirdColor == "#044479"){
+            firstColor.value = getRandomColor();
+            secondColor.value = getRandomColor();
+            thirdColor.value = getRandomColor();
+        }
         down.value = "ArrowDown"; 
         up.value = "ArrowUp"; 
         right.value = "ArrowRight"; 
@@ -418,10 +427,10 @@ users_arr.push('a');
 
     function checkParameters(){
         if(document.getElementById("firstColor").value.length === 0 || document.getElementById("secondColor").value.length===0 ||
-        document.getElementById("thirdColor").value.length===0 || document.getElementById("up").value.length===0 ||
-        document.getElementById("down").value.length===0 || document.getElementById("right").value.length===0 ||
-        document.getElementById("left").value.length===0 || document.getElementById("seconds").value.length===0 ||
-        document.getElementById("monsters").value.length===0 || document.getElementById("ballsNum").value.length===0 ){
+            document.getElementById("thirdColor").value.length===0 || document.getElementById("up").value.length===0 ||
+            document.getElementById("down").value.length===0 || document.getElementById("right").value.length===0 ||
+            document.getElementById("left").value.length===0 || document.getElementById("seconds").value.length===0 ||
+            document.getElementById("monsters").value.length===0 || document.getElementById("ballsNum").value.length===0 ){
             window.alert("Please select the values ​​for all variables or click on a Random button")
             return;
         }
@@ -436,6 +445,22 @@ users_arr.push('a');
         if(document.getElementById("monsters").value<1 || document.getElementById("monsters").value>3){
             window.alert("The number of monsters possible is 1, 2 or 3")
             return;
+        }
+        if(document.getElementById("firstColor").value == "#044479"){
+            window.alert("Your first color is the same as the background color, please choose a different color")
+            return
+        }
+        if(secondColor.value == "#044479"){
+            window.alert("Your second color is the same as the background color, please choose a different color")
+            return
+        }
+        if(thirdColor.value == "#044479"){
+            window.alert("Your third color is the same as the background color, please choose a different color")
+            return
+        }
+        if(firstColor.value == secondColor.value || firstColor.value == thirdColor.value || secondColor.value == thirdColor.value){
+            window.alert("Your must choose diffrent colors for the balls");
+            return
         }
         myMusic.stop();
         Start();
@@ -964,6 +989,7 @@ users_arr.push('a');
         setTimeout(function() {
             alert("We have a Winner!!!");
         },10)
+        theGameIsStarted=false;
     }
 
     function timeIsUp(){
@@ -985,6 +1011,7 @@ users_arr.push('a');
             },10)
             //window.alert("We have a Winner!!!" );
         }
+        theGameIsStarted=false;
     }
 
     function getRandomColor() {
@@ -1010,6 +1037,8 @@ users_arr.push('a');
         var s = document.getElementById("setting");
         s.style.display = "none"; 
         myMusic.stop();
+        winMusic.stop();
+        
     }
 
     function signUp(){
@@ -1026,6 +1055,7 @@ users_arr.push('a');
         var s = document.getElementById("setting");
         s.style.display = "none";
         myMusic.stop();
+        winMusic.stop();
 
     }
 
@@ -1044,6 +1074,7 @@ users_arr.push('a');
         var s = document.getElementById("setting");
         s.style.display="none";
         myMusic.stop();
+        winMusic.stop();
         
     }
 
@@ -1063,6 +1094,8 @@ users_arr.push('a');
         x.style.display="none";
         var z = document.getElementById("game");
         z.style.display="none";
+        myMusic.stop();
+        winMusic.stop();
     }
 
     function submit(){
@@ -1216,8 +1249,4 @@ users_arr.push('a');
                 }
             }
         }
-    }
-
-    function about(){
-        document.getElementById("myDialog").showModal(); 
     }
