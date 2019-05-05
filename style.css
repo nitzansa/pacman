@@ -21,7 +21,6 @@ body
 	text-decoration: none;
 	color: rgb(232, 252, 122);
 	text-align: left top;
-	/* border-right: 1px solid rgb(232, 252, 122); */
 }
 #footer
 {
@@ -46,7 +45,6 @@ body
     float: left;
     text-align: left;
     font: bold 70% Georgia, serif;
-    /* font-size: 90%; */
     color: black;
 }
 #By{
@@ -83,7 +81,6 @@ body
     left: 0;
     overflow-x: hidden; /* Disable horizontal scroll */
     text-align: center;
-    /* background-image: url("bar_pacdots.gif"); */
 }
 .menuLine
 {
@@ -109,7 +106,6 @@ body
     padding: -10% 0%;
 }
 .buttons{
-    /* width: 300%; */
     width: 250px;
     display: inline-block;
     font: bold 200% Georgia, serif;
@@ -277,12 +273,9 @@ p{
     font-size: 14px;
 }
 #canvas{
-    /* position: relative;
-    text-align: center; */
     border: 3px solid rgb(232, 252, 122);
     width: 35%;
     padding: 3px 20px;
-    /* margin: 8px 0; */
     position: relative;
     text-align: center;
     top:0;

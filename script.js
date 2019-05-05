@@ -20,7 +20,6 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
-var intervalSmail;
 var intervalGhost;
 var intervalMedication;
 var intervalStopMedication;
@@ -66,7 +65,7 @@ users_arr.push('a');
         return indexOf.call(this, needle) > -1;
     };
 
-    welcome(); //????????
+    welcome(); 
 
     function checkFieldsToSubmit(){
         if($("#uname").val()==''){
@@ -149,7 +148,6 @@ users_arr.push('a');
             return "invalid"
     }
     function validatePass(pass) {
-        console.log(pass)
         var numbers =/[0-9]/;
         var letters =/[A-Za-z]/;
         var another =/[@$!%*#?&^+|/~><.'";,=/`]/;
@@ -381,7 +379,7 @@ users_arr.push('a');
             }
         }
     }
-    //**********
+  
      function random(){
         firstColor.value = getRandomColor();
         secondColor.value = getRandomColor();
@@ -557,9 +555,7 @@ users_arr.push('a');
             keysDown[e.code] = false;
         }, false);
         interval = setInterval(UpdatePosition, 200);
-        //intervalSmail = setInterval(moveSmail, 550);
         intervalGhost = setInterval(moveAllGhousts, 400);
-        //intervalGhost = setInterval(moveGhost, 250);
         intervalMedication = setInterval(addMedication, 14000);
         intervalStopMedication = setInterval(stopMedication, 16000);
         intervalClock = setInterval(addClock, 15000);
@@ -570,7 +566,6 @@ users_arr.push('a');
     }
 
     function initGhost(){
-        console.log(monsters.value);
         if(monsters.value >= 1){
             board[0][9] = -1;
             ghost.i = 0;
@@ -675,7 +670,6 @@ users_arr.push('a');
             }
             else{
                 random = Math.floor(Math.random() * (10 - 0) ) + 0;
-                //console.log(random+" seconddddddddddddd")
                 if(random < 5){
                     if(thirdCounter > 0){
                     board[i][j] = 10;
@@ -705,7 +699,6 @@ users_arr.push('a');
             }
             else{
                 random = Math.floor(Math.random() * (10 - 0) ) + 0;
-                //console.log(random+" thirdddddddddddddddd")
                 if(random < 5){
                     if(firstCounter > 0){
                     board[i][j] = 8;
@@ -760,7 +753,6 @@ users_arr.push('a');
         if(contains.call(users_arr, name)){
             var index = users_arr.indexOf(name);
             if(users_arr[index + 1] == password){
-                //console.log("user name: " + users_arr[index] + "paa: " + users_arr[index + 1]);
                 setting();
             }
             else{
@@ -822,7 +814,6 @@ users_arr.push('a');
         if(isValidPos(selectedGhost.i, selectedGhost.j - 1, flag))
             dis_left = Math.sqrt(Math.pow(shape.i - selectedGhost.i, 2) + Math.pow(shape.j - (selectedGhost.j - 1), 2));
         
-        //console.log(dis_up + " " + dis_down + " " + dis_left + " " + dis_right);
         if(dis_up === 0 || dis_down === 0 || dis_left === 0 || dis_right === 0){
             board[shape.i][shape.j] = 0;
             disq--;
@@ -1001,7 +992,6 @@ users_arr.push('a');
         window.clearInterval(intervalStopClock);
         myMusic.stop();
         if(score < 150){
-            //console.log(document.getElementById("seconds").value);
             window.alert("You can do better");
         }
         else{
@@ -1009,7 +999,6 @@ users_arr.push('a');
             setTimeout(function() {
                 alert("We have a Winner!!!");
             },10)
-            //window.alert("We have a Winner!!!" );
         }
         theGameIsStarted=false;
     }
